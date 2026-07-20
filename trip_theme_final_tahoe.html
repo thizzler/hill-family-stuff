@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner - Chaotic Colorful Final</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Space+Grotesk:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Montserrat:wght@600;700;800&family=Lexend+Deca:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #ff3366 0%, #ff6b35 25%, #ffc857 50%, #26c485 75%, #2e86de 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #1a1a1a;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 8.5rem;
+            font-weight: 900;
+            margin-bottom: 0.2rem;
+            line-height: 0.85;
+            color: #00ff00;
+            text-shadow: 
+                5px 5px 0px #ff00ff,
+                10px 10px 0px #00ffff,
+                15px 15px 0px #ffff00;
+            letter-spacing: -3px;
+            position: relative;
+            transform: skew(-3deg);
+        }
+
+        .header-dates {
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+            text-shadow: 2px 2px 0px #2e86de;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6f0 100%);
+            border: 5px solid #ff3366;
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 10px 10px 0px rgba(255, 51, 102, 0.4), -3px -3px 0px rgba(0, 255, 0, 0.25);
+            transform: rotate(-1.5deg);
+        }
+
+        .card:nth-child(even) {
+            transform: rotate(1.5deg);
+            border-color: #2e86de;
+            box-shadow: 10px 10px 0px rgba(46, 134, 222, 0.4), -3px -3px 0px rgba(255, 107, 53, 0.25);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -18px;
+            right: -18px;
+            width: 50px;
+            height: 50px;
+            background: #00ff00;
+            border-radius: 50%;
+            border: 4px solid #ff3366;
+            opacity: 0.8;
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1.8rem;
+            color: #ff3366;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            transform: skew(-2deg);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00ff00, #ff00ff, #00ffff);
+            border-radius: 3px;
+        }
+
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+        }
+
+        .month-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2e86de;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.7rem;
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+
+        .weekday {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ff3366 0%, #ff00ff 100%);
+            padding: 0.7rem;
+            border-radius: 10px;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.7rem;
+        }
+
+        .day {
+            aspect-ratio: 1.1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 4px solid #1a1a1a;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            transition: all 0.15s;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .day:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 6px 6px 0px rgba(0, 255, 0, 0.5);
+            border-color: #00ff00;
+        }
+
+        .day:active {
+            transform: scale(0.92);
+        }
+
+        .day.event {
+            background: linear-gradient(135deg, #00ff00 0%, #26c485 100%);
+            color: #1a1a1a;
+            border-color: #ff3366;
+            font-weight: 900;
+            box-shadow: 4px 4px 0px #ff3366, 8px 8px 0px #2e86de;
+        }
+
+        .day.event:hover {
+            box-shadow: 6px 6px 0px #ff3366, 12px 12px 0px #2e86de;
+        }
+
+        .day.other-month {
+            color: #ccc;
+            background: #f5f5f5;
+            opacity: 0.5;
+        }
+
+        .event-item {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0f5 100%);
+            border: 4px solid #2e86de;
+            border-radius: 14px;
+            padding: 1.3rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 5px 5px 0px rgba(46, 134, 222, 0.35);
+            position: relative;
+            transform: rotate(-0.8deg);
+        }
+
+        .event-item:hover {
+            transform: rotate(0.5deg) scale(1.03);
+            box-shadow: 7px 7px 0px rgba(46, 134, 222, 0.5);
+        }
+
+        .event-item::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: #ff3366;
+            border-radius: 50%;
+            border: 3px solid #2e86de;
+        }
+
+        .event-date {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            color: #ff3366;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.4rem;
+        }
+
+        .event-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #2e86de;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .event-desc {
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            font-weight: 500;
+            font-family: 'Lexend Deca', sans-serif;
+        }
+
+        .suggestions-section {
+            margin-top: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .suggestions-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            color: #00ff00;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 3px 3px 0px #ff3366, 6px 6px 0px #2e86de;
+            transform: skew(-2deg);
+        }
+
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .suggestion {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0f5 100%);
+            border: 5px solid;
+            border-radius: 18px;
+            padding: 1.8rem;
+            box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s;
+            transform: rotate(-2.5deg);
+            position: relative;
+        }
+
+        .suggestion:nth-child(1) {
+            border-color: #ff3366;
+        }
+
+        .suggestion:nth-child(2) {
+            border-color: #2e86de;
+            transform: rotate(1.5deg);
+        }
+
+        .suggestion:nth-child(3) {
+            border-color: #00ff00;
+            transform: rotate(-1.5deg);
+        }
+
+        .suggestion:hover {
+            transform: rotate(0) scale(1.05);
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.35);
+        }
+
+        .suggestion-author {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .suggestion:nth-child(1) .suggestion-author {
+            color: #ff3366;
+        }
+
+        .suggestion:nth-child(2) .suggestion-author {
+            color: #2e86de;
+        }
+
+        .suggestion:nth-child(3) .suggestion-author {
+            color: #00ff00;
+        }
+
+        .suggestion-text {
+            color: #1a1a1a;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            font-family: 'Lexend Deca', sans-serif;
+        }
+
+        .suggestion-meta {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .emoji {
+            font-size: 1.6rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 5rem;
+            }
+
+            .suggestions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .suggestion {
+                transform: rotate(0);
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .suggestions-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SEATTLE</h1>
+            <div class="header-dates">July 31 – August 8, 2024 • Let's go wild</div>
+        </header>
+
+        <div class="main-grid">
+            <!-- Calendar Card -->
+            <div class="card">
+                <div class="calendar-header">
+                    <div class="month-title">JULY – AUGUST 2024</div>
+                </div>
+
+                <div class="weekdays">
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                </div>
+
+                <div class="days">
+                    <div class="day other-month">28</div>
+                    <div class="day other-month">29</div>
+                    <div class="day other-month">30</div>
+                    <div class="day other-month event">31</div>
+                    <div class="day event">1</div>
+                    <div class="day event">2</div>
+                    <div class="day event">3</div>
+                    <div class="day event">4</div>
+                    <div class="day event">5</div>
+                    <div class="day event">6</div>
+                    <div class="day event">7</div>
+                    <div class="day event">8</div>
+                    <div class="day">9</div>
+                    <div class="day">10</div>
+                    <div class="day">11</div>
+                    <div class="day">12</div>
+                    <div class="day">13</div>
+                    <div class="day">14</div>
+                    <div class="day">15</div>
+                    <div class="day">16</div>
+                    <div class="day">17</div>
+                    <div class="day">18</div>
+                    <div class="day">19</div>
+                    <div class="day">20</div>
+                    <div class="day">21</div>
+                    <div class="day">22</div>
+                    <div class="day">23</div>
+                    <div class="day">24</div>
+                    <div class="day">25</div>
+                    <div class="day">26</div>
+                    <div class="day">27</div>
+                    <div class="day">28</div>
+                    <div class="day">29</div>
+                    <div class="day">30</div>
+                    <div class="day">31</div>
+                </div>
+            </div>
+
+            <!-- Events Card -->
+            <div class="card">
+                <h2 style="margin-top: 0;">PLAN</h2>
+                <div class="event-item">
+                    <div class="event-date">Jul 31</div>
+                    <div class="event-title">DRIVE TO SEATTLE</div>
+                    <div class="event-desc">10:30 AM • Sleep at Cristy's</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">Aug 1</div>
+                    <div class="event-title">GREENS CABIN</div>
+                    <div class="event-desc">Day trip</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">Aug 2</div>
+                    <div class="event-title">BREAKFAST & HEAD HOME</div>
+                    <div class="event-desc">Chill with Cristy • Silverdale?</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">Aug 3</div>
+                    <div class="event-title">AMY'S BIRTHDAY</div>
+                    <div class="event-desc">Evening celebration • Jojo sleepover?</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">Aug 4</div>
+                    <div class="event-title">OPEN</div>
+                    <div class="event-desc">No plans yet</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">Aug 5</div>
+                    <div class="event-title">COFFEE GROUP?</div>
+                    <div class="event-desc">Evening: Mariners game?</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">Aug 6</div>
+                    <div class="event-title">COFFEE GROUP?</div>
+                    <div class="event-desc">Evening: Mariners game? Jojo sleepover?</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">Aug 7</div>
+                    <div class="event-title">OPEN</div>
+                    <div class="event-desc">No plans yet</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">Aug 8</div>
+                    <div class="event-title">DRIVE HOME</div>
+                    <div class="event-desc">End of trip</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestions Section -->
+        <div class="suggestions-section">
+            <div class="suggestions-title">IDEAS & VIBES</div>
+            <div class="suggestions-grid">
+                <div class="suggestion">
+                    <div class="suggestion-author"><span class="emoji">📍</span> Places to Visit</div>
+                    <div class="suggestion-text">U Village • Cristy's Salon • Greens Cabin</div>
+                    <div class="suggestion-meta">Locations</div>
+                </div>
+                <div class="suggestion">
+                    <div class="suggestion-author"><span class="emoji">🎉</span> Amy's Birthday</div>
+                    <div class="suggestion-text">Evening celebration with friends • Confirm guest list & venue</div>
+                    <div class="suggestion-meta">Aug 3</div>
+                </div>
+                <div class="suggestion">
+                    <div class="suggestion-author"><span class="emoji">😴</span> Jojo's Sleepovers</div>
+                    <div class="suggestion-text">Potential dates: Aug 3, 6 • Friends: Eva, Allison, Edie, Marlow</div>
+                    <div class="suggestion-meta">TBD</div>
+                </div>
+                <div class="suggestion">
+                    <div class="suggestion-author"><span class="emoji">☕</span> Coffee Group</div>
+                    <div class="suggestion-text">Check schedule for Aug 5 & 6 • Confirm with Cristy</div>
+                    <div class="suggestion-meta">Optional</div>
+                </div>
+                <div class="suggestion">
+                    <div class="suggestion-author"><span class="emoji">⚾</span> Mariners Game</div>
+                    <div class="suggestion-text">Check dates/tickets for Aug 5 or 6</div>
+                    <div class="suggestion-meta">Optional</div>
+                </div>
+                <div class="suggestion">
+                    <div class="suggestion-author"><span class="emoji">🚗</span> Silverdale</div>
+                    <div class="suggestion-text">Maybe after breakfast on Aug 2?</div>
+                    <div class="suggestion-meta">Optional</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
