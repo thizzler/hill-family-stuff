@@ -15,20 +15,12 @@
         body {
             font-family: 'Space Grotesk', sans-serif;
             background: linear-gradient(135deg, #ff3366 0%, #ff6b35 25%, #ffc857 50%, #26c485 75%, #2e86de 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
             color: #1a1a1a;
             line-height: 1.5;
             min-height: 100vh;
             padding: 2rem 1rem;
             position: relative;
             overflow-x: hidden;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         /* ===== SCREENS ===== */
@@ -38,10 +30,14 @@
 
         .auth-screen.active {
             display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .profile-screen.active {
             display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .main-screen.active {
@@ -55,13 +51,8 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             z-index: 999;
             background: linear-gradient(135deg, #ff3366 0%, #ff6b35 25%, #ffc857 50%, #26c485 75%, #2e86de 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
         }
 
         .auth-box {
@@ -123,13 +114,8 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             z-index: 998;
             background: linear-gradient(135deg, #ff3366 0%, #ff6b35 25%, #ffc857 50%, #26c485 75%, #2e86de 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
         }
 
         .profile-box {
@@ -250,13 +236,14 @@
         }
 
         .current-profile {
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 0.95rem;
+            font-weight: 800;
             color: #fff;
             background: rgba(0, 0, 0, 0.3);
-            padding: 0.5rem 1rem;
+            padding: 0.7rem 1.5rem;
             border-radius: 20px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            border: 2px solid;
         }
 
         .logout-btn {
@@ -818,6 +805,10 @@
         }
 
         @media (max-width: 768px) {
+            .card {
+                transform: rotate(0) !important;
+            }
+
             h1 {
                 font-size: 4.5rem;
             }
@@ -845,7 +836,7 @@
     <!-- Auth Screen -->
     <div class="screen auth-screen active">
         <div class="auth-box">
-            <h1>🏔️ SEATTLE</h1>
+            <h1>SEATTLE</h1>
             <p>Family Trip Planner</p>
             <input type="password" id="authInput" placeholder="Password" onkeypress="if(event.key==='Enter') authenticate()" />
             <button onclick="authenticate()">Enter</button>
@@ -1009,10 +1000,13 @@
         // ===== AUTH =====
         function authenticate() {
             const input = document.getElementById('authInput').value;
+            console.log('Password entered:', input);
             if (input === 'hill') {
+                console.log('Password correct, switching to profile screen');
                 sessionStorage.setItem('authenticated', 'true');
                 showScreen('profile-screen');
             } else {
+                console.log('Password incorrect');
                 alert('Wrong password');
                 document.getElementById('authInput').value = '';
             }
@@ -1074,7 +1068,16 @@
 
         // ===== RENDER =====
         function renderAll() {
-            document.getElementById('profileDisplay').textContent = `👤 ${currentUser}`;
+            const profileColors = {
+                'Tyler': '#ff3366',
+                'Amy': '#2e86de',
+                'Jojo': '#00ff00',
+                'Ruby': '#ffc857'
+            };
+            const profileDisplay = document.getElementById('profileDisplay');
+            profileDisplay.textContent = currentUser;
+            profileDisplay.style.borderColor = profileColors[currentUser] || '#fff';
+            profileDisplay.style.color = profileColors[currentUser] || '#fff';
             document.getElementById('currentProfile2').textContent = currentUser;
             renderCalendar();
             renderEvents();
