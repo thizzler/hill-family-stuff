@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trip Planner - Chaotic Colorful Final</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Space+Grotesk:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Montserrat:wght@600;700;800&family=Lexend+Deca:wght@400;600&display=swap" rel="stylesheet">
+    <title>Seattle Trip Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Montserrat:wght@600;700;800&family=Lexend+Deca:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -31,6 +31,150 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* ===== SCREENS ===== */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* ===== AUTH SCREEN ===== */
+        .auth-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .auth-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .auth-box h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .auth-box p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .auth-box input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.1rem;
+            border: 3px solid #2e86de;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+        }
+
+        .auth-box button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff3366, #00ff00);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .auth-box button:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== PROFILE SCREEN ===== */
+        .profile-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .profile-box {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .profile-box h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ff3366 0%, #00ff00 50%, #2e86de 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .profile-box p {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .profile-btn {
+            background: #fff;
+            border: 5px solid;
+            border-radius: 18px;
+            padding: 2rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .profile-btn:nth-child(1) {
+            border-color: #ff3366;
+            color: #ff3366;
+        }
+
+        .profile-btn:nth-child(2) {
+            border-color: #2e86de;
+            color: #2e86de;
+        }
+
+        .profile-btn:nth-child(3) {
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .profile-btn:nth-child(4) {
+            border-color: #ffc857;
+            color: #ffc857;
+        }
+
+        .profile-btn:hover {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        /* ===== MAIN SCREEN ===== */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -40,9 +184,16 @@
 
         header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             position: relative;
-            z-index: 2;
+        }
+
+        .header-title {
+            flex: 1;
+            text-align: center;
         }
 
         h1 {
@@ -51,14 +202,11 @@
             font-weight: 900;
             margin-bottom: 0.2rem;
             line-height: 0.85;
-            color: #00ff00;
-            text-shadow: 
-                5px 5px 0px #ff00ff,
-                10px 10px 0px #00ffff,
-                15px 15px 0px #ffff00;
+            background: linear-gradient(90deg, #00ff00 0%, #ff3366 50%, #2e86de 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             letter-spacing: -3px;
-            position: relative;
-            transform: skew(-3deg);
         }
 
         .header-dates {
@@ -70,6 +218,38 @@
             letter-spacing: 2px;
             margin-top: 0.5rem;
             text-shadow: 2px 2px 0px #2e86de;
+        }
+
+        .header-info {
+            font-family: 'Poppins', sans-serif;
+            text-align: right;
+        }
+
+        .current-profile {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .logout-btn {
+            background: #ff3366;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #ff1a4d;
+            transform: scale(1.05);
         }
 
         .main-grid {
@@ -221,6 +401,13 @@
             color: #ccc;
             background: #f5f5f5;
             opacity: 0.5;
+            cursor: default;
+        }
+
+        .day.other-month:hover {
+            transform: none;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+            border-color: #1a1a1a;
         }
 
         .event-item {
@@ -255,18 +442,18 @@
         .event-date {
             font-family: 'Courier Prime', monospace;
             font-size: 0.75rem;
+            font-weight: 700;
             color: #ff3366;
             text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
         }
 
         .event-title {
             font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            color: #2e86de;
             font-size: 1.2rem;
+            font-weight: 800;
+            color: #1a1a1a;
             margin-bottom: 0.3rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
@@ -277,6 +464,48 @@
             color: #1a1a1a;
             font-weight: 500;
             font-family: 'Lexend Deca', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-meta {
+            font-size: 0.75rem;
+            color: #999;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .event-actions {
+            margin-top: 0.8rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .edit-btn {
+            background: #2e86de;
+            color: #fff;
+        }
+
+        .edit-btn:hover {
+            background: #1a5ca0;
+        }
+
+        .delete-btn {
+            background: #ff3366;
+            color: #fff;
+        }
+
+        .delete-btn:hover {
+            background: #ff1a4d;
         }
 
         .suggestions-section {
@@ -297,6 +526,54 @@
             transform: skew(-2deg);
         }
 
+        .suggestions-form {
+            background: #fff;
+            border: 5px solid #ff3366;
+            border-radius: 18px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 3px solid #2e86de;
+            border-radius: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group button {
+            background: linear-gradient(90deg, #00ff00, #26c485);
+            color: #1a1a1a;
+            border: none;
+            padding: 0.9rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .form-group button:hover {
+            transform: scale(1.05);
+        }
+
         .suggestions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -314,16 +591,16 @@
             position: relative;
         }
 
-        .suggestion:nth-child(1) {
+        .suggestion:nth-child(1n) {
             border-color: #ff3366;
         }
 
-        .suggestion:nth-child(2) {
+        .suggestion:nth-child(2n) {
             border-color: #2e86de;
             transform: rotate(1.5deg);
         }
 
-        .suggestion:nth-child(3) {
+        .suggestion:nth-child(3n) {
             border-color: #00ff00;
             transform: rotate(-1.5deg);
         }
@@ -340,21 +617,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
-        .suggestion:nth-child(1) .suggestion-author {
             color: #ff3366;
-        }
-
-        .suggestion:nth-child(2) .suggestion-author {
-            color: #2e86de;
-        }
-
-        .suggestion:nth-child(3) .suggestion-author {
-            color: #00ff00;
         }
 
         .suggestion-text {
@@ -374,187 +637,637 @@
             font-weight: 400;
         }
 
-        .emoji {
-            font-size: 1.6rem;
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #ff3366;
+        }
+
+        .modal-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #1a1a1a;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #ff3366;
+            font-weight: 700;
+        }
+
+        .event-list-modal {
+            margin-bottom: 2rem;
+        }
+
+        .event-item-modal {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0f5 100%);
+            border: 3px solid #2e86de;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .event-item-modal h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .event-item-modal p {
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .event-item-modal .meta {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 0.8rem;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .event-item-modal .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .form-group-modal {
+            margin-bottom: 1rem;
+        }
+
+        .form-group-modal label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+        }
+
+        .form-group-modal input,
+        .form-group-modal textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 2px solid #2e86de;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .form-group-modal textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: flex-end;
+        }
+
+        .modal-actions button {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #00ff00, #26c485);
+            color: #1a1a1a;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: #999;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #777;
         }
 
         @media (max-width: 768px) {
+            h1 {
+                font-size: 4.5rem;
+            }
+
             .main-grid {
                 grid-template-columns: 1fr;
             }
 
-            h1 {
-                font-size: 5rem;
-            }
-
-            .suggestions-grid {
+            .profile-grid {
                 grid-template-columns: 1fr;
             }
 
-            .suggestion {
-                transform: rotate(0);
+            header {
+                flex-direction: column;
+                gap: 1rem;
             }
 
-            h2 {
-                font-size: 1.8rem;
-            }
-
-            .suggestions-title {
-                font-size: 2rem;
+            .header-info {
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <!-- Auth Screen -->
+    <div class="screen auth-screen active">
+        <div class="auth-box">
+            <h1>🏔️ SEATTLE</h1>
+            <p>Family Trip Planner</p>
+            <input type="password" id="authInput" placeholder="Password" />
+            <button onclick="authenticate()">Enter</button>
+        </div>
+    </div>
+
+    <!-- Profile Screen -->
+    <div class="screen profile-screen">
+        <div class="profile-box">
             <h1>SEATTLE</h1>
-            <div class="header-dates">July 31 – August 8, 2024 • Let's go wild</div>
-        </header>
-
-        <div class="main-grid">
-            <!-- Calendar Card -->
-            <div class="card">
-                <div class="calendar-header">
-                    <div class="month-title">JULY – AUGUST 2024</div>
-                </div>
-
-                <div class="weekdays">
-                    <div class="weekday">Sun</div>
-                    <div class="weekday">Mon</div>
-                    <div class="weekday">Tue</div>
-                    <div class="weekday">Wed</div>
-                    <div class="weekday">Thu</div>
-                    <div class="weekday">Fri</div>
-                    <div class="weekday">Sat</div>
-                </div>
-
-                <div class="days">
-                    <div class="day other-month">28</div>
-                    <div class="day other-month">29</div>
-                    <div class="day other-month">30</div>
-                    <div class="day other-month event">31</div>
-                    <div class="day event">1</div>
-                    <div class="day event">2</div>
-                    <div class="day event">3</div>
-                    <div class="day event">4</div>
-                    <div class="day event">5</div>
-                    <div class="day event">6</div>
-                    <div class="day event">7</div>
-                    <div class="day event">8</div>
-                    <div class="day">9</div>
-                    <div class="day">10</div>
-                    <div class="day">11</div>
-                    <div class="day">12</div>
-                    <div class="day">13</div>
-                    <div class="day">14</div>
-                    <div class="day">15</div>
-                    <div class="day">16</div>
-                    <div class="day">17</div>
-                    <div class="day">18</div>
-                    <div class="day">19</div>
-                    <div class="day">20</div>
-                    <div class="day">21</div>
-                    <div class="day">22</div>
-                    <div class="day">23</div>
-                    <div class="day">24</div>
-                    <div class="day">25</div>
-                    <div class="day">26</div>
-                    <div class="day">27</div>
-                    <div class="day">28</div>
-                    <div class="day">29</div>
-                    <div class="day">30</div>
-                    <div class="day">31</div>
-                </div>
-            </div>
-
-            <!-- Events Card -->
-            <div class="card">
-                <h2 style="margin-top: 0;">PLAN</h2>
-                <div class="event-item">
-                    <div class="event-date">Jul 31</div>
-                    <div class="event-title">DRIVE TO SEATTLE</div>
-                    <div class="event-desc">10:30 AM • Sleep at Cristy's</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">Aug 1</div>
-                    <div class="event-title">GREENS CABIN</div>
-                    <div class="event-desc">Day trip</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">Aug 2</div>
-                    <div class="event-title">BREAKFAST & HEAD HOME</div>
-                    <div class="event-desc">Chill with Cristy • Silverdale?</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">Aug 3</div>
-                    <div class="event-title">AMY'S BIRTHDAY</div>
-                    <div class="event-desc">Evening celebration • Jojo sleepover?</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">Aug 4</div>
-                    <div class="event-title">OPEN</div>
-                    <div class="event-desc">No plans yet</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">Aug 5</div>
-                    <div class="event-title">COFFEE GROUP?</div>
-                    <div class="event-desc">Evening: Mariners game?</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">Aug 6</div>
-                    <div class="event-title">COFFEE GROUP?</div>
-                    <div class="event-desc">Evening: Mariners game? Jojo sleepover?</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">Aug 7</div>
-                    <div class="event-title">OPEN</div>
-                    <div class="event-desc">No plans yet</div>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">Aug 8</div>
-                    <div class="event-title">DRIVE HOME</div>
-                    <div class="event-desc">End of trip</div>
-                </div>
+            <p>Who are you?</p>
+            <div class="profile-grid">
+                <button class="profile-btn" onclick="selectProfile('Tyler')">Tyler</button>
+                <button class="profile-btn" onclick="selectProfile('Amy')">Amy</button>
+                <button class="profile-btn" onclick="selectProfile('Jojo')">Jojo</button>
+                <button class="profile-btn" onclick="selectProfile('Ruby')">Ruby</button>
             </div>
         </div>
+    </div>
 
-        <!-- Suggestions Section -->
-        <div class="suggestions-section">
-            <div class="suggestions-title">IDEAS & VIBES</div>
-            <div class="suggestions-grid">
-                <div class="suggestion">
-                    <div class="suggestion-author"><span class="emoji">📍</span> Places to Visit</div>
-                    <div class="suggestion-text">U Village • Cristy's Salon • Greens Cabin</div>
-                    <div class="suggestion-meta">Locations</div>
+    <!-- Main Screen -->
+    <div class="screen main-screen">
+        <div class="container">
+            <header>
+                <div class="header-title">
+                    <h1>SEATTLE</h1>
+                    <div class="header-dates">July 31 – August 8, 2026</div>
                 </div>
-                <div class="suggestion">
-                    <div class="suggestion-author"><span class="emoji">🎉</span> Amy's Birthday</div>
-                    <div class="suggestion-text">Evening celebration with friends • Confirm guest list & venue</div>
-                    <div class="suggestion-meta">Aug 3</div>
+                <div class="header-info">
+                    <div class="current-profile" id="profileDisplay"></div>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
                 </div>
-                <div class="suggestion">
-                    <div class="suggestion-author"><span class="emoji">😴</span> Jojo's Sleepovers</div>
-                    <div class="suggestion-text">Potential dates: Aug 3, 6 • Friends: Eva, Allison, Edie, Marlow</div>
-                    <div class="suggestion-meta">TBD</div>
+            </header>
+
+            <div class="main-grid">
+                <!-- Calendar Card -->
+                <div class="card">
+                    <div class="calendar-header">
+                        <div class="month-title">JULY – AUGUST 2026</div>
+                    </div>
+
+                    <div class="weekdays">
+                        <div class="weekday">Sun</div>
+                        <div class="weekday">Mon</div>
+                        <div class="weekday">Tue</div>
+                        <div class="weekday">Wed</div>
+                        <div class="weekday">Thu</div>
+                        <div class="weekday">Fri</div>
+                        <div class="weekday">Sat</div>
+                    </div>
+
+                    <div class="days" id="calendar"></div>
                 </div>
-                <div class="suggestion">
-                    <div class="suggestion-author"><span class="emoji">☕</span> Coffee Group</div>
-                    <div class="suggestion-text">Check schedule for Aug 5 & 6 • Confirm with Cristy</div>
-                    <div class="suggestion-meta">Optional</div>
+
+                <!-- Events Card -->
+                <div class="card">
+                    <h2 style="margin-top: 0;">PLAN</h2>
+                    <div id="eventsList"></div>
                 </div>
-                <div class="suggestion">
-                    <div class="suggestion-author"><span class="emoji">⚾</span> Mariners Game</div>
-                    <div class="suggestion-text">Check dates/tickets for Aug 5 or 6</div>
-                    <div class="suggestion-meta">Optional</div>
+            </div>
+
+            <!-- Suggestions Section -->
+            <div class="suggestions-section">
+                <div class="suggestions-title">IDEAS & VIBES</div>
+                
+                <div class="suggestions-form">
+                    <form onsubmit="addSuggestion(event)">
+                        <div class="form-group">
+                            <label>Your Idea (as <span id="currentProfile2"></span>)</label>
+                            <textarea id="suggestionText" placeholder="Share an idea..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Submit Idea</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="suggestion">
-                    <div class="suggestion-author"><span class="emoji">🚗</span> Silverdale</div>
-                    <div class="suggestion-text">Maybe after breakfast on Aug 2?</div>
-                    <div class="suggestion-meta">Optional</div>
+
+                <div class="suggestions-grid" id="suggestionsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="event-list-modal" id="modalEventsList"></div>
+            <div id="editFormContainer" style="display: none;">
+                <h4 style="margin-bottom: 1rem;">Edit Event</h4>
+                <div class="form-group-modal">
+                    <label>Title</label>
+                    <input type="text" id="editTitle" />
+                </div>
+                <div class="form-group-modal">
+                    <label>Description</label>
+                    <textarea id="editDesc"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="cancelEdit()">Cancel</button>
+                    <button class="btn-primary" onclick="saveEventEdit()">Save</button>
+                </div>
+            </div>
+            <div id="addFormContainer">
+                <h4 style="margin-bottom: 1rem;">Add Event</h4>
+                <div class="form-group-modal">
+                    <label>Title</label>
+                    <input type="text" id="newTitle" />
+                </div>
+                <div class="form-group-modal">
+                    <label>Description</label>
+                    <textarea id="newDesc"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeModal()">Close</button>
+                    <button class="btn-primary" onclick="saveNewEvent()">Add Event</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // ===== INIT DATA =====
+        const MONTHS = ['July', 'August'];
+        const DAYS_PER_MONTH = [31, 31]; // July 31, August 31
+        const TRIP_DAYS = {
+            'Jul 31': true, 'Aug 1': true, 'Aug 2': true, 'Aug 3': true,
+            'Aug 4': true, 'Aug 5': true, 'Aug 6': true, 'Aug 7': true, 'Aug 8': true
+        };
+
+        const DEFAULT_EVENTS = {
+            'Jul 31': [
+                { id: 'e1', title: 'Drive to Seattle', description: '10:30 AM • Sleep at Cristy\'s', createdBy: 'Tyler', createdAt: '2026-07-20T10:00:00', editedBy: null, editedAt: null }
+            ],
+            'Aug 1': [
+                { id: 'e2', title: 'Greens Cabin', description: 'Day trip', createdBy: 'Tyler', createdAt: '2026-07-20T10:00:00', editedBy: null, editedAt: null }
+            ],
+            'Aug 2': [
+                { id: 'e3', title: 'Breakfast & Head Home', description: 'Chill with Cristy • Silverdale?', createdBy: 'Tyler', createdAt: '2026-07-20T10:00:00', editedBy: null, editedAt: null }
+            ],
+            'Aug 3': [
+                { id: 'e4', title: 'Amy\'s Birthday', description: 'Evening celebration • Jojo sleepover?', createdBy: 'Tyler', createdAt: '2026-07-20T10:00:00', editedBy: null, editedAt: null }
+            ],
+            'Aug 5': [
+                { id: 'e5', title: 'Coffee Group?', description: 'Evening: Mariners game?', createdBy: 'Tyler', createdAt: '2026-07-20T10:00:00', editedBy: null, editedAt: null }
+            ],
+            'Aug 6': [
+                { id: 'e6', title: 'Coffee Group?', description: 'Evening: Mariners game? Jojo sleepover?', createdBy: 'Tyler', createdAt: '2026-07-20T10:00:00', editedBy: null, editedAt: null }
+            ],
+            'Aug 8': [
+                { id: 'e7', title: 'Drive Home', description: 'End of trip', createdBy: 'Tyler', createdAt: '2026-07-20T10:00:00', editedBy: null, editedAt: null }
+            ]
+        };
+
+        let currentUser = null;
+        let currentDay = null;
+        let editingEventId = null;
+
+        // ===== AUTH =====
+        function authenticate() {
+            const input = document.getElementById('authInput').value;
+            if (input === 'hill') {
+                sessionStorage.setItem('authenticated', 'true');
+                showScreen('profile-screen');
+            } else {
+                alert('Wrong password');
+                document.getElementById('authInput').value = '';
+            }
+        }
+
+        function selectProfile(name) {
+            currentUser = name;
+            sessionStorage.setItem('currentUser', name);
+            showScreen('main-screen');
+            renderAll();
+        }
+
+        function logout() {
+            sessionStorage.removeItem('authenticated');
+            sessionStorage.removeItem('currentUser');
+            currentUser = null;
+            document.getElementById('authInput').value = '';
+            showScreen('auth-screen');
+        }
+
+        // ===== SCREENS =====
+        function showScreen(screenName) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelector('.' + screenName).classList.add('active');
+        }
+
+        // ===== INIT =====
+        window.addEventListener('load', () => {
+            const isAuth = sessionStorage.getItem('authenticated');
+            const savedUser = sessionStorage.getItem('currentUser');
+            
+            if (isAuth && savedUser) {
+                currentUser = savedUser;
+                showScreen('main-screen');
+                renderAll();
+            } else if (isAuth) {
+                showScreen('profile-screen');
+            }
+        });
+
+        // ===== DATA MANAGEMENT =====
+        function getEvents() {
+            const stored = localStorage.getItem('events');
+            return stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(DEFAULT_EVENTS));
+        }
+
+        function saveEvents(events) {
+            localStorage.setItem('events', JSON.stringify(events));
+        }
+
+        function getSuggestions() {
+            const stored = localStorage.getItem('suggestions');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function saveSuggestions(suggestions) {
+            localStorage.setItem('suggestions', JSON.stringify(suggestions));
+        }
+
+        // ===== RENDER =====
+        function renderAll() {
+            document.getElementById('profileDisplay').textContent = `👤 ${currentUser}`;
+            document.getElementById('currentProfile2').textContent = currentUser;
+            renderCalendar();
+            renderEvents();
+            renderSuggestions();
+        }
+
+        function renderCalendar() {
+            const container = document.getElementById('calendar');
+            container.innerHTML = '';
+
+            // July
+            for (let i = 1; i <= 31; i++) {
+                const dateStr = `Jul ${i}`;
+                const isTrip = TRIP_DAYS[dateStr];
+                const div = document.createElement('div');
+                div.className = `day ${isTrip ? 'event' : ''} ${i < 28 ? 'other-month' : ''}`;
+                div.textContent = i;
+                div.onclick = () => openEventModal(dateStr);
+                container.appendChild(div);
+            }
+
+            // August
+            for (let i = 1; i <= 31; i++) {
+                const dateStr = `Aug ${i}`;
+                const isTrip = TRIP_DAYS[dateStr];
+                const div = document.createElement('div');
+                div.className = `day ${isTrip ? 'event' : ''}`;
+                div.textContent = i;
+                div.onclick = () => openEventModal(dateStr);
+                container.appendChild(div);
+            }
+        }
+
+        function renderEvents() {
+            const events = getEvents();
+            const container = document.getElementById('eventsList');
+            container.innerHTML = '';
+
+            // Show events from trip days in order
+            const tripDayOrder = ['Jul 31', 'Aug 1', 'Aug 2', 'Aug 3', 'Aug 4', 'Aug 5', 'Aug 6', 'Aug 7', 'Aug 8'];
+            
+            for (const day of tripDayOrder) {
+                if (events[day]) {
+                    for (const event of events[day]) {
+                        const div = document.createElement('div');
+                        div.className = 'event-item';
+                        let editMeta = '';
+                        if (event.editedBy) {
+                            const editDate = new Date(event.editedAt).toLocaleDateString() + ' ' + new Date(event.editedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                            editMeta = ` | Edited by ${event.editedBy} on ${editDate}`;
+                        }
+                        const createDate = new Date(event.createdAt).toLocaleDateString() + ' ' + new Date(event.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        div.innerHTML = `
+                            <div class="event-date">${day}</div>
+                            <div class="event-title">${event.title}</div>
+                            <div class="event-desc">${event.description}</div>
+                            <div class="event-meta">Created by ${event.createdBy} on ${createDate}${editMeta}</div>
+                        `;
+                        container.appendChild(div);
+                    }
+                }
+            }
+        }
+
+        function renderSuggestions() {
+            const suggestions = getSuggestions();
+            const container = document.getElementById('suggestionsList');
+            container.innerHTML = '';
+
+            for (const suggestion of suggestions) {
+                const div = document.createElement('div');
+                div.className = 'suggestion';
+                const time = new Date(suggestion.timestamp).toLocaleDateString() + ' ' + new Date(suggestion.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                div.innerHTML = `
+                    <div class="suggestion-author">${suggestion.author}</div>
+                    <div class="suggestion-text">${suggestion.text}</div>
+                    <div class="suggestion-meta">${time}</div>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        // ===== MODAL / EVENTS =====
+        function openEventModal(day) {
+            currentDay = day;
+            const events = getEvents();
+            const dayEvents = events[day] || [];
+
+            document.getElementById('modalTitle').textContent = day;
+            const list = document.getElementById('modalEventsList');
+            list.innerHTML = '';
+
+            for (const event of dayEvents) {
+                const div = document.createElement('div');
+                div.className = 'event-item-modal';
+                let editMeta = '';
+                if (event.editedBy) {
+                    const editDate = new Date(event.editedAt).toLocaleDateString() + ' ' + new Date(event.editedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    editMeta = ` | Edited by ${event.editedBy} on ${editDate}`;
+                }
+                const createDate = new Date(event.createdAt).toLocaleDateString() + ' ' + new Date(event.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                div.innerHTML = `
+                    <h4>${event.title}</h4>
+                    <p>${event.description}</p>
+                    <div class="meta">Created by ${event.createdBy} on ${createDate}${editMeta}</div>
+                `;
+
+                if (currentUser === 'Tyler' || currentUser === 'Amy') {
+                    div.innerHTML += `
+                        <div class="actions">
+                            <button class="edit-btn" onclick="startEditEvent('${event.id}', '${event.title}', '${event.description}')">Edit</button>
+                            <button class="delete-btn" onclick="deleteEvent('${event.id}')">Delete</button>
+                        </div>
+                    `;
+                }
+                list.appendChild(div);
+            }
+
+            document.getElementById('editFormContainer').style.display = 'none';
+            document.getElementById('addFormContainer').style.display = 'block';
+            document.getElementById('newTitle').value = '';
+            document.getElementById('newDesc').value = '';
+            editingEventId = null;
+
+            document.getElementById('eventModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('eventModal').classList.remove('active');
+            currentDay = null;
+            editingEventId = null;
+        }
+
+        function startEditEvent(eventId, title, description) {
+            editingEventId = eventId;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editDesc').value = description;
+            document.getElementById('editFormContainer').style.display = 'block';
+            document.getElementById('addFormContainer').style.display = 'none';
+        }
+
+        function cancelEdit() {
+            editingEventId = null;
+            document.getElementById('editFormContainer').style.display = 'none';
+            document.getElementById('addFormContainer').style.display = 'block';
+        }
+
+        function saveEventEdit() {
+            if (!editingEventId || !currentDay) return;
+
+            const events = getEvents();
+            const event = events[currentDay].find(e => e.id === editingEventId);
+            if (event) {
+                event.title = document.getElementById('editTitle').value;
+                event.description = document.getElementById('editDesc').value;
+                event.editedBy = currentUser;
+                event.editedAt = new Date().toISOString();
+                saveEvents(events);
+                renderAll();
+                openEventModal(currentDay);
+            }
+        }
+
+        function saveNewEvent() {
+            const title = document.getElementById('newTitle').value.trim();
+            const desc = document.getElementById('newDesc').value.trim();
+
+            if (!title || !currentDay) return;
+
+            const events = getEvents();
+            if (!events[currentDay]) events[currentDay] = [];
+
+            events[currentDay].push({
+                id: 'e' + Date.now(),
+                title: title,
+                description: desc,
+                createdBy: currentUser,
+                createdAt: new Date().toISOString(),
+                editedBy: null,
+                editedAt: null
+            });
+
+            saveEvents(events);
+            renderAll();
+            openEventModal(currentDay);
+        }
+
+        function deleteEvent(eventId) {
+            if (!confirm('Delete this event?')) return;
+
+            const events = getEvents();
+            if (events[currentDay]) {
+                events[currentDay] = events[currentDay].filter(e => e.id !== eventId);
+                saveEvents(events);
+                renderAll();
+                openEventModal(currentDay);
+            }
+        }
+
+        // ===== SUGGESTIONS =====
+        function addSuggestion(e) {
+            e.preventDefault();
+            const text = document.getElementById('suggestionText').value.trim();
+
+            if (!text) return;
+
+            const suggestions = getSuggestions();
+            suggestions.push({
+                author: currentUser,
+                text: text,
+                timestamp: new Date().toISOString()
+            });
+
+            saveSuggestions(suggestions);
+            document.getElementById('suggestionText').value = '';
+            renderSuggestions();
+        }
+    </script>
 </body>
 </html>
